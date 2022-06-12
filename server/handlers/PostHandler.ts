@@ -1,13 +1,8 @@
 import { RequestHandler } from "express";
 import { db } from "../datastore";
-import { Post } from "../types";
+import { ExpressHandler, Post } from "../models";
 import crypto from "crypto"
-export type ExpressHandler<req, res> = RequestHandler<
-    string,
-    Partial<res>,
-    Partial<req>,
-    any
->;
+
 
 export const listPostsHandler: ExpressHandler<{}, {}> = (req, res) => {
     res.send({ posts: db.listPosts() })
