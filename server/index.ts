@@ -1,5 +1,5 @@
 import express, { RequestHandler } from "express"
-import { db } from "./datastore"
+import { createPostHandler, listPostsHandler } from "./handlers/PostHandler";
 const app = express();
 // to handle json requests in express (express does not support json automatically)
 app.use(express.json())
@@ -21,16 +21,9 @@ const requestsLoggerMiddleware: RequestHandler = (req, res, next) => {
 
 app.use(requestsLoggerMiddleware)
 
-app.get('/posts', (req, res) => {
-    res.send({ posts: db.listPosts() })
-})
+app.get('/posts', listPostsHandler)
 
-app.post('/posts', (req, res) => {
-    const post = req.body;
-    db.createPost(post)
-    // you must send status 200 ok
-    res.sendStatus(200)
-})
+app.post('/posts', createPostHandler)
 
 
 app.listen(3000)

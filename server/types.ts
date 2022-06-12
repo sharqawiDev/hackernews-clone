@@ -13,7 +13,7 @@ export interface Post {
     url: string;
     userId: string;
     postedAt: number;
-    tags: [string]
+    tags: string[]
 }
 
 export interface Like {
