@@ -1,10 +1,8 @@
 import express, { RequestHandler } from "express"
-
+import { db } from "./datastore"
 const app = express();
 // to handle json requests in express (express does not support json automatically)
 app.use(express.json())
-
-const posts: any[] = []
 
 
 /**
@@ -24,12 +22,12 @@ const requestsLoggerMiddleware: RequestHandler = (req, res, next) => {
 app.use(requestsLoggerMiddleware)
 
 app.get('/posts', (req, res) => {
-    res.send({ posts })
+    res.send({ posts: db.listPosts() })
 })
 
 app.post('/posts', (req, res) => {
     const post = req.body;
-    posts.push(post);
+    db.createPost(post)
     // you must send status 200 ok
     res.sendStatus(200)
 })

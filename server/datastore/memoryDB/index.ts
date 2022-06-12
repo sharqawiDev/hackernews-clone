@@ -9,10 +9,10 @@ export class InMemoryDataStore implements DataStore {
     createUser(user: User): void {
         this.users.push(user);
     }
-    getUserByEmail(email: string): User {
+    getUserByEmail(email: string): User | undefined {
         return this.users.find(user => user.email === email);
     }
-    getUserByUsername(username: string): User {
+    getUserByUsername(username: string): User | undefined {
         return this.users.find(user => user.username === username);
     }
     listPosts(): Post[] {
@@ -21,7 +21,7 @@ export class InMemoryDataStore implements DataStore {
     createPost(post: Post): void {
         this.posts.push(post)
     }
-    getPost(id: string): Post {
+    getPost(id: string): Post | undefined {
         return this.posts.find(post => post.id === id)
     }
     deletePost(id: string): void {
