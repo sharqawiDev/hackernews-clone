@@ -1,4 +1,3 @@
-import { RequestHandler } from "express";
 import { db } from "../datastore";
 import { ExpressHandler, Post } from "../models";
 import crypto from "crypto"
@@ -8,8 +7,6 @@ import { CreatePostReq, CreatePostRes, ListPostReq, ListPostRes } from "../API";
 export const listPostsHandler: ExpressHandler<ListPostReq, ListPostRes> = (req, res) => {
     res.send({ posts: db.listPosts() })
 }
-
-
 
 export const createPostHandler: ExpressHandler<CreatePostReq, CreatePostRes> = (req, res) => {
     if (!req.body.title || !req.body.url || !req.body.userId)
