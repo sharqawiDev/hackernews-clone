@@ -2,15 +2,14 @@ import { RequestHandler } from "express";
 import { db } from "../datastore";
 import { ExpressHandler, Post } from "../models";
 import crypto from "crypto"
+import { CreatePostReq, CreatePostRes, ListPostReq, ListPostRes } from "../API";
 
 
-export const listPostsHandler: ExpressHandler<{}, {}> = (req, res) => {
+export const listPostsHandler: ExpressHandler<ListPostReq, ListPostRes> = (req, res) => {
     res.send({ posts: db.listPosts() })
 }
 
-type CreatePostReq = Pick<Post, 'title' | 'userId' | 'url' | 'tags'>;
 
-interface CreatePostRes { }
 
 export const createPostHandler: ExpressHandler<CreatePostReq, CreatePostRes> = (req, res) => {
     if (!req.body.title || !req.body.url || !req.body.userId)
