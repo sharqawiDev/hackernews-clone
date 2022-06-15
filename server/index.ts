@@ -1,5 +1,6 @@
 import express, { ErrorRequestHandler, RequestHandler } from "express"
 import { createPostHandler, listPostsHandler } from "./handlers/PostHandler";
+import asyncHandler from "express-async-handler"
 const app = express();
 // to handle json requests in express (express does not support json automatically)
 app.use(express.json())
@@ -19,9 +20,9 @@ const requestsLoggerMiddleware: RequestHandler = (req, res, next) => {
 
 app.use(requestsLoggerMiddleware)
 
-app.get('/posts', listPostsHandler)
+app.get('/posts', asyncHandler(listPostsHandler));
 
-app.post('/posts', createPostHandler)
+app.post('/posts', asyncHandler(createPostHandler))
 
 
 // error handler middleware so errors in the backend do not show to the client users

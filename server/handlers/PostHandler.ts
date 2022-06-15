@@ -4,11 +4,12 @@ import crypto from "crypto"
 import { CreatePostReq, CreatePostRes, ListPostReq, ListPostRes } from "../API";
 
 
-export const listPostsHandler: ExpressHandler<ListPostReq, ListPostRes> = (req, res) => {
-    res.send({ posts: db.listPosts() })
+export const listPostsHandler: ExpressHandler<ListPostReq, ListPostRes> = async (req, res) => {
+
+    return res.send({ posts: await db.listPosts() })
 }
 
-export const createPostHandler: ExpressHandler<CreatePostReq, CreatePostRes> = (req, res) => {
+export const createPostHandler: ExpressHandler<CreatePostReq, CreatePostRes> = async (req, res) => {
     if (!req.body.title || !req.body.url || !req.body.userId)
         return res.sendStatus(400)
     const post: Post = {
@@ -19,7 +20,7 @@ export const createPostHandler: ExpressHandler<CreatePostReq, CreatePostRes> = (
         userId: req.body.userId,
         tags: req.body.tags || []
     }
-    db.createPost(post)
+    await db.createPost(post)
     // you must send status 200 ok
     res.sendStatus(200)
 }

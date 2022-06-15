@@ -6,38 +6,45 @@ export class InMemoryDataStore implements DataStore {
     private posts: Post[] = [];
     private likes: Like[] = [];
     private comments: Comment[] = [];
-    createUser(user: User): void {
+    createUser(user: User): Promise<void> {
         this.users.push(user);
+        return Promise.resolve();
     }
-    getUserByEmail(email: string): User | undefined {
-        return this.users.find(user => user.email === email);
+    getUserByEmail(email: string): Promise<User | undefined> {
+
+        return Promise.resolve(this.users.find(user => user.email === email));
     }
-    getUserByUsername(username: string): User | undefined {
-        return this.users.find(user => user.username === username);
+    getUserByUsername(username: string): Promise<User | undefined> {
+        return Promise.resolve(this.users.find(user => user.username === username))
     }
-    listPosts(): Post[] {
-        return this.posts;
+    listPosts(): Promise<Post[]> {
+        return Promise.resolve(this.posts);
     }
-    createPost(post: Post): void {
-        this.posts.push(post)
+    createPost(post: Post): Promise<void> {
+        this.posts.push(post);
+        return Promise.resolve();
     }
-    getPost(id: string): Post | undefined {
-        return this.posts.find(post => post.id === id)
+    getPost(id: string): Promise<Post | undefined> {
+        return Promise.resolve(this.posts.find(post => post.id === id));
     }
-    deletePost(id: string): void {
-        this.posts = this.posts.filter(post => post.id !== id)
+    deletePost(id: string): Promise<void> {
+        this.posts = this.posts.filter(post => post.id !== id);
+        return Promise.resolve();
     }
-    createLike(like: Like): void {
-        this.likes.push(like)
+    createLike(like: Like): Promise<void> {
+        this.likes.push(like);
+        return Promise.resolve();
     }
-    createComment(comment: Comment): void {
-        this.comments.push(comment)
+    createComment(comment: Comment): Promise<void> {
+        this.comments.push(comment);
+        return Promise.resolve();
     }
-    listComments(postId: string): Comment[] {
-        return this.comments;
+    listComments(postId: string): Promise<Comment[]> {
+        return Promise.resolve(this.comments);
     }
-    deleteComment(id: string): void {
-        this.comments = this.comments.filter(comment => comment.id !== id)
+    deleteComment(id: string): Promise<void> {
+        this.comments = this.comments.filter(comment => comment.id !== id);
+        return Promise.resolve();
     }
 
 }
