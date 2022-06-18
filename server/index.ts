@@ -2,6 +2,7 @@ import express, { ErrorRequestHandler, RequestHandler } from "express"
 import { createPostHandler, listPostsHandler } from "./handlers/PostHandler";
 import asyncHandler from "express-async-handler"
 import { initDB } from "./datastore";
+import { signInHandler, signUpHandler } from "./handlers/UserHandler";
 
 (async () => {
     await initDB();
@@ -22,9 +23,11 @@ import { initDB } from "./datastore";
 
     app.use(requestsLoggerMiddleware)
 
-    app.get('/posts', asyncHandler(listPostsHandler));
+    app.get('/v1/posts', asyncHandler(listPostsHandler));
+    app.post('/v1/posts', asyncHandler(createPostHandler))
 
-    app.post('/posts', asyncHandler(createPostHandler))
+    app.post('/v1/signUp', asyncHandler(signUpHandler))
+    app.post('/v1/signIn', asyncHandler(signInHandler))
 
 
     // error handler middleware so errors in the backend do not show to the client users
