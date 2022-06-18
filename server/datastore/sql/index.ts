@@ -1,18 +1,20 @@
 import sqlite3 from 'sqlite3'
-import { open } from 'sqlite'
+import { open, Database } from 'sqlite'
 import path from "path"
 import { DataStore } from "..";
 import { User, Post, Like, Comment } from "../../models";
 
 export class SqlDataStore implements DataStore {
-
+    private db!: Database<sqlite3.Database, sqlite3.Statement>;
     public async openDB() {
-        const db = await open({
+        this.db = await open({
             filename: path.join(__dirname, 'hacker-news.sqlite'),
             driver: sqlite3.Database
-        })
+        });
 
-        await db.migrate({
+        await this.db.run('PRAGMA foreign_keys = ON;');
+
+        await this.db.migrate({
             migrationsPath: path.join(__dirname, 'migrations')
         })
 
@@ -28,10 +30,19 @@ export class SqlDataStore implements DataStore {
         throw new Error("Method not implemented.");
     }
     listPosts(): Promise<Post[]> {
-        throw new Error("Method not implemented.");
+        return this.db.all<Post[]>('SELECT * from posts');
     }
-    createPost(post: Post): Promise<void> {
-        throw new Error("Method not implemented.");
+    async createPost(post: Post): Promise<void> {
+        await this.db.run(
+            'INSERT INTO posts(id, postedAt, tags, title, url, userId) VALUES (?,?,?,?,?,?)'
+            ,
+            post.id,
+            post.postedAt,
+            post.tags.toString(),
+            post.title,
+            post.url,
+            post.userId
+        )
     }
     getPost(id: string): Promise<Post | undefined> {
         throw new Error("Method not implemented.");
