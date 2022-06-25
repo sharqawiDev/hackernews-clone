@@ -35,12 +35,19 @@ export class SqlDataStore implements DataStore {
     getUserByEmail(email: string): Promise<User | undefined> {
         return this.db.get<User>(`SELECT * from users WHERE email = ?`, email);
     }
+
+    getUserById(id: string): Promise<User | undefined> {
+        return this.db.get<User>('SELECT * from users WHERE id = ?', id)
+    }
+
     getUserByUsername(username: string): Promise<User | undefined> {
         return this.db.get<User>(`SELECT * from users WHERE username = ?`, username);
     }
+
     listPosts(): Promise<Post[]> {
         return this.db.all<Post[]>('SELECT * from posts');
     }
+
     async createPost(post: Post): Promise<void> {
         await this.db.run(
             'INSERT INTO posts(id, postedAt, tags, title, url, userId) VALUES (?,?,?,?,?,?)'
@@ -53,21 +60,27 @@ export class SqlDataStore implements DataStore {
             post.userId
         )
     }
+
     getPost(id: string): Promise<Post | undefined> {
         throw new Error("Method not implemented.");
     }
+
     deletePost(id: string): Promise<void> {
         throw new Error("Method not implemented.");
     }
+
     createLike(like: Like): Promise<void> {
         throw new Error("Method not implemented.");
     }
+
     createComment(comment: Comment): Promise<void> {
         throw new Error("Method not implemented.");
     }
+
     listComments(postId: string): Promise<Comment[]> {
         throw new Error("Method not implemented.");
     }
+
     deleteComment(id: string): Promise<void> {
         throw new Error("Method not implemented.");
     }
