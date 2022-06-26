@@ -14,9 +14,9 @@ import { authMiddleware } from "./middleware/authMiddleware";
     // to handle json requests in express (express does not support json automatically)
     app.use(express.json())
 
-
     app.use(requestsLoggerMiddleware)
 
+    app.get('/healthz', (req, res) => res.send({ status: 'OK 😎' }))
     app.post('/v1/signUp', asyncHandler(signUpHandler))
     app.post('/v1/signIn', asyncHandler(signInHandler))
 
@@ -29,7 +29,7 @@ import { authMiddleware } from "./middleware/authMiddleware";
 
     app.use(errHandler)
 
-    app.listen(3000)
+    app.listen(process.env.PORT || 3000)
 })()
 
 

@@ -4,7 +4,8 @@
     "main": "index.js",
     "license": "MIT",
     "scripts": {
-        "start": "nodemon server.ts"
+        "start": "nodemon server.ts",
+        "start:prod": "pm2 delete hacker-news-clone; pm2 start --name hacker-news-clone \"npx ts-node --transpile-only server.ts\""
     },
     "dependencies": {
         "@types/jsonwebtoken": "^8.5.8",
@@ -12,6 +13,7 @@
         "express": "^4.18.1",
         "express-async-handler": "^1.2.0",
         "jsonwebtoken": "^8.5.1",
+        "pm2": "^5.2.0",
         "typescript": "^4.7.3"
     },
     "devDependencies": {
