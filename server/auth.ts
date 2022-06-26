@@ -3,7 +3,7 @@ import jwt from "jsonwebtoken"
 
 export function signJWT(obj: JWTObject): string {
 
-    return jwt.sign(obj, getJWTSecret(), { expiresIn: '10d' })
+    return jwt.sign(obj, getJWTSecret(), { expiresIn: '1d' })
 }
 
 export const verifyJWT = (token: string): JWTObject => {

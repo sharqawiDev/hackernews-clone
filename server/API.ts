@@ -1,19 +1,19 @@
 import { Post, User } from "./models";
 
-export interface ListPostReq { }
-export interface ListPostRes {
+export interface ListPostRequest { }
+export interface ListPostResponse {
     posts: Post[]
 }
 
-export type CreatePostReq = Pick<Post, 'title' | 'userId' | 'url' | 'tags'>;
-export interface CreatePostRes { }
+export type CreatePostRequest = Pick<Post, 'title' | 'url' | 'tags'>;
+export interface CreatePostResponse { }
 
-export interface GetPostReq { }
-export interface GetPostRes {
+export interface GetPostRequest { }
+export interface GetPostResponse {
     post: Post
 }
 
-export type SignUpRequest = Pick<User, 'email' | 'firstName' | 'lastName' | 'username' | 'password'>,
+export type SignUpRequest = Pick<User, 'email' | 'firstName' | 'lastName' | 'username' | 'password'>
 
 export interface SignUpResponse { jwt: string }
 
