@@ -1,0 +1,21 @@
+name: Droplet Deployer
+
+on:
+  push:
+    branches: [deploy-production]
+
+  workflow_dispatch:
+
+jobs:
+  deploy:
+    runs-on: self-hosted
+
+    steps:
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v3
+
+      - name: Deploy and restart server
+        run: |
+          cd server
+          yarn
+          PORT=3000 JWT_SECRET=1122334455 PASSWORD_SALT=secretsalt ENV=production yarn start:prod
