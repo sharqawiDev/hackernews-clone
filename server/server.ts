@@ -30,6 +30,7 @@ import { authMiddleware } from "./middleware/authMiddleware";
     app.use(errHandler)
 
     app.listen(process.env.PORT || 3000)
+    console.log(`jwt secret ${process.env.JWT_SECRET} | salt: ${process.env.PASSWORD_SALT}`)
 })()
 
 
