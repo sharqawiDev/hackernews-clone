@@ -18,4 +18,4 @@ jobs:
         run: |
           cd server
           yarn
-          PORT=3000 JWT_SECRET=1122334455 PASSWORD_SALT=secretsalt ENV=production yarn start:prod
+          PORT=80 JWT_SECRET=1122334455 PASSWORD_SALT=secretsalt ENV=production yarn start:prod
